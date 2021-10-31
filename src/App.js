@@ -1,11 +1,15 @@
 import React from 'react';
 import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {SplashScreen} from './pages';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
   return (
     <>
-      <SplashScreen />
+      <NavigationContainer>
+        {/* Rest of your app code */}
+        <SplashScreen />
+      </NavigationContainer>
     </>
   );
 };
