@@ -2,10 +2,10 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 
-const Select = () => {
+const Select = ({label}) => {
   return (
     <View>
-      <Text style={styles.label}>Label Select Option</Text>
+      <Text style={styles.label}>{label}</Text>
       <View style={styles.input}>
         <Picker
         // selectedValue={selectedLanguage}
