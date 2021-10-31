@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
-import {SplashScreen} from './pages';
+import {SignIn, SplashScreen} from './pages';
 import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
@@ -8,7 +8,8 @@ const App = () => {
     <>
       <NavigationContainer>
         {/* Rest of your app code */}
-        <SplashScreen />
+        {/* <SplashScreen /> */}
+        <SignIn />
       </NavigationContainer>
     </>
   );
