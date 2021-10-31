@@ -1,41 +1,32 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Button, Gap, Header, TextInput} from '../../components';
+import {Button, Gap, Header, Select, TextInput} from '../../components';
 
-const SignUp = ({navigation}) => {
+const SignUpAddress = () => {
   return (
     <View style={styles.page}>
-      <Header title="Sign Up" subTitle="Register and eat" onBack={() => {}} />
+      <Header
+        title="Address"
+        subTitle="Make sure it's valid"
+        onBack={() => {}}
+      />
       <View style={styles.container}>
-        <View style={styles.photo}>
-          <View style={styles.borderPhoto}>
-            <View style={styles.photoContainer}>
-              <Text style={styles.addPhoto}>Add Photo</Text>
-            </View>
-          </View>
-        </View>
-        <TextInput label="Full Name" placeholder="Type your full name" />
+        <TextInput label="Phone No." placeholder="Type your phone number" />
         <Gap height={16} />
-        <TextInput
-          label="Email Address"
-          placeholder="Type your email address"
-        />
+        <TextInput label="Address" placeholder="Type your address" />
         <Gap height={16} />
-        <TextInput label="Password" placeholder="Type your password" />
+        <TextInput label="House No." placeholder="Type your house number" />
+        <Gap height={16} />
+        <Select />
         <Gap height={24} />
-        <Button
-          text="Continue"
-          onPress={() => {
-            navigation.navigate('SignUpAddress');
-          }}
-        />
+        <Button text="Sign Up Now" />
         <Gap height={12} />
       </View>
     </View>
   );
 };
 
-export default SignUp;
+export default SignUpAddress;
 
 const styles = StyleSheet.create({
   page: {flex: 1},
