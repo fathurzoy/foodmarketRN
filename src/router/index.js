@@ -1,7 +1,10 @@
-import React from 'react';
-
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import React from 'react';
 import {
+  Home,
+  Order,
+  Profile,
   SignIn,
   SignUp,
   SignUpAddress,
@@ -10,6 +13,17 @@ import {
 } from '../pages';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const MainApp = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Order" component={Order} />
+      <Tab.Screen name="Profil" component={Profile} />
+    </Tab.Navigator>
+  );
+};
 
 const Router = () => {
   return (
@@ -37,6 +51,11 @@ const Router = () => {
       <Stack.Screen
         name="SuccessSignUp"
         component={SuccessSignUp}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="MainApp"
+        component={MainApp}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
