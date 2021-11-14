@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Dimensions,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   useWindowDimensions,
@@ -26,40 +27,46 @@ const renderTabBar = props => (
 
 const NewTaste = () => {
   return (
-    <View style={styles.containerPopular}>
-      <ItemListFood image={FoodDummy1} />
-      <ItemListFood image={FoodDummy2} />
-      <ItemListFood image={FoodDummy3} />
-      <ItemListFood image={FoodDummy4} />
-      <ItemListFood image={FoodDummy4} />
-      <ItemListFood image={FoodDummy4} />
-    </View>
+    <ScrollView>
+      <View style={styles.containerPopular}>
+        <ItemListFood image={FoodDummy1} />
+        <ItemListFood image={FoodDummy2} />
+        <ItemListFood image={FoodDummy3} />
+        <ItemListFood image={FoodDummy4} />
+        <ItemListFood image={FoodDummy4} />
+        <ItemListFood image={FoodDummy4} />
+      </View>
+    </ScrollView>
   );
 };
 
 const Popular = () => {
   return (
-    <View style={{paddingTop: 8}}>
-      <ItemListFood image={FoodDummy2} />
-      <ItemListFood image={FoodDummy2} />
-      <ItemListFood image={FoodDummy4} />
-      <ItemListFood image={FoodDummy4} />
-      <ItemListFood image={FoodDummy1} />
-      <ItemListFood image={FoodDummy4} />
-    </View>
+    <ScrollView>
+      <View style={{paddingTop: 8}}>
+        <ItemListFood image={FoodDummy2} />
+        <ItemListFood image={FoodDummy2} />
+        <ItemListFood image={FoodDummy4} />
+        <ItemListFood image={FoodDummy4} />
+        <ItemListFood image={FoodDummy1} />
+        <ItemListFood image={FoodDummy4} />
+      </View>
+    </ScrollView>
   );
 };
 
 const Recommended = () => {
   return (
-    <View style={styles.containerRecommended}>
-      <ItemListFood image={FoodDummy4} />
-      <ItemListFood image={FoodDummy3} />
-      <ItemListFood image={FoodDummy1} />
-      <ItemListFood image={FoodDummy4} />
-      <ItemListFood image={FoodDummy4} />
-      <ItemListFood image={FoodDummy4} />
-    </View>
+    <ScrollView>
+      <View style={styles.containerRecommended}>
+        <ItemListFood image={FoodDummy4} />
+        <ItemListFood image={FoodDummy3} />
+        <ItemListFood image={FoodDummy1} />
+        <ItemListFood image={FoodDummy4} />
+        <ItemListFood image={FoodDummy4} />
+        <ItemListFood image={FoodDummy4} />
+      </View>
+    </ScrollView>
   );
 };
 

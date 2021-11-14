@@ -25,7 +25,7 @@ const Home = () => {
   return (
     <View style={styles.page}>
       <HomeProfile />
-      <View>
+      <View style={{flex: 1}}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={styles.foodCardContainer}>
             <Gap width={24} />
