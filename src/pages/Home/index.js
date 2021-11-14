@@ -23,25 +23,23 @@ import {
 
 const Home = () => {
   return (
-    <ScrollView vertical={true}>
-      <View style={styles.page}>
-        <HomeProfile />
-        <View>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.foodCardContainer}>
-              <Gap width={24} />
-              <FoodCard image={FoodDummy1} />
-              <FoodCard image={FoodDummy2} />
-              <FoodCard image={FoodDummy3} />
-              <FoodCard image={FoodDummy4} />
-            </View>
-          </ScrollView>
-        </View>
-        <View style={styles.tabContainer}>
-          <HomeTabSection />
-        </View>
+    <View style={styles.page}>
+      <HomeProfile />
+      <View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={styles.foodCardContainer}>
+            <Gap width={24} />
+            <FoodCard image={FoodDummy1} />
+            <FoodCard image={FoodDummy2} />
+            <FoodCard image={FoodDummy3} />
+            <FoodCard image={FoodDummy4} />
+          </View>
+        </ScrollView>
       </View>
-    </ScrollView>
+      <View style={styles.tabContainer}>
+        <HomeTabSection />
+      </View>
+    </View>
   );
 };
 

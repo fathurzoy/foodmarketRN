@@ -1,5 +1,12 @@
 import React from 'react';
-import {Image, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {FoodDummy1, FoodDummy2, FoodDummy3, FoodDummy4} from '../../../assets';
 import ItemListFood from '../ItemListFood';
@@ -8,35 +15,18 @@ import Rating from '../Rating';
 const renderTabBar = props => (
   <TabBar
     {...props}
-    indicatorStyle={{
-      backgroundColor: '#020202',
-      height: 3,
-      width: '15%',
-      marginLeft: '3%',
-    }}
-    style={{
-      backgroundColor: 'white',
-      elevation: 0,
-      shadowOpacity: 0,
-      borderBottomColor: '#F2F2F2',
-      borderBottomWidth: 1,
-    }}
-    tabStyle={{}}
-    renderLabel={({route, focused, color}) => (
-      <Text
-        style={{
-          fontFamily: 'Poppins-Medium',
-          color: focused ? '#020202' : '#8D92A3',
-        }}>
-        {route.title}
-      </Text>
+    indicatorStyle={styles.indicator}
+    style={styles.tabBarStyle}
+    tabStyle={styles.tabStyle}
+    renderLabel={({route, focused}) => (
+      <Text style={styles.tabText(focused)}>{route.title}</Text>
     )}
   />
 );
 
 const NewTaste = () => {
   return (
-    <View style={{paddingTop: 8}}>
+    <View style={styles.containerPopular}>
       <ItemListFood image={FoodDummy1} />
       <ItemListFood image={FoodDummy2} />
       <ItemListFood image={FoodDummy3} />
@@ -62,7 +52,7 @@ const Popular = () => {
 
 const Recommended = () => {
   return (
-    <View style={{paddingTop: 8}}>
+    <View style={styles.containerRecommended}>
       <ItemListFood image={FoodDummy4} />
       <ItemListFood image={FoodDummy3} />
       <ItemListFood image={FoodDummy1} />
@@ -73,15 +63,9 @@ const Recommended = () => {
   );
 };
 
-const renderScene = SceneMap({
-  1: NewTaste,
-  2: Popular,
-  3: Recommended,
-});
+const initialLayout = {width: Dimensions.get('window').width};
 
 const HomeTabSection = () => {
-  const layout = useWindowDimensions();
-
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: '1', title: 'New Taste'},
@@ -89,18 +73,47 @@ const HomeTabSection = () => {
     {key: '3', title: 'Recommended'},
   ]);
 
+  const renderScene = SceneMap({
+    1: NewTaste,
+    2: Popular,
+    3: Recommended,
+  });
+
   return (
     <TabView
       renderTabBar={renderTabBar}
       navigationState={{index, routes}}
       renderScene={renderScene}
       onIndexChange={setIndex}
-      initialLayout={{width: layout.width}}
-      style={{backgroundColor: 'white'}}
+      initialLayout={initialLayout}
+      style={styles.tabView}
     />
   );
 };
 
 export default HomeTabSection;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  tabView: {backgroundColor: 'white'},
+  indicator: {
+    backgroundColor: '#020202',
+    height: 3,
+    width: '15%',
+    marginLeft: '3%',
+  },
+  tabBarStyle: {
+    backgroundColor: 'white',
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomColor: '#F2F2F2',
+    borderBottomWidth: 1,
+  },
+  tabStyle: {},
+  tabText: focused => ({
+    fontFamily: 'Poppins-Medium',
+    color: focused ? '#020202' : '#8D92A3',
+  }),
+  containerNewTaste: {paddingTop: 8, paddingHorizontal: 24},
+  containerPopular: {paddingTop: 8, paddingHorizontal: 24},
+  containerRecommended: {paddingTop: 8, paddingHorizontal: 24},
+});
