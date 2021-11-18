@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {BottomNavigator} from '../components';
 import {
+  FoodDetail,
   Home,
   Order,
   Profile,
@@ -65,6 +66,11 @@ const Router = () => {
       <Stack.Screen
         name="MainApp"
         component={MainApp}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="FoodDetail"
+        component={FoodDetail}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
