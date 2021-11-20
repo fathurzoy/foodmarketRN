@@ -1,18 +1,7 @@
-import React from 'react';
-import {
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View,
-} from 'react-native';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import {FoodDummy1, FoodDummy2, FoodDummy3, FoodDummy4} from '../../../assets';
-import ItemListFood from '../ItemListFood';
-import Rating from '../Rating';
 import {useNavigation} from '@react-navigation/native';
+import React from 'react';
+import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {ItemListMenu} from '..';
 
 const renderTabBar = props => (
