@@ -3,10 +3,10 @@ const initialStateRegister = {
   email: '',
   password: '',
   password_confirmation: '',
-  address: '',
-  city: '',
-  houseNumber: '',
-  phoneNumber: '',
+  // address: '',
+  // city: '',
+  // houseNumber: '',
+  // phoneNumber: '',
 };
 
 export const registerReducer = (state = initialStateRegister, action) => {
@@ -19,14 +19,14 @@ export const registerReducer = (state = initialStateRegister, action) => {
       password_confirmation: action.value.password,
     };
   }
-  if (action.type === 'SET_ADDRESS') {
-    return {
-      ...state,
-      address: action.value.address,
-      city: action.value.city,
-      houseNumber: action.value.houseNumber,
-      phoneNumber: action.value.phoneNumber,
-    };
-  }
+  // if (action.type === 'SET_ADDRESS') {
+  //   return {
+  //     ...state,
+  //     address: action.value.address,
+  //     city: action.value.city,
+  //     houseNumber: action.value.houseNumber,
+  //     phoneNumber: action.value.phoneNumber,
+  //   };
+  // }
   return state;
 };
