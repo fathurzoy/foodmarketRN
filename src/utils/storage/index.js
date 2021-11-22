@@ -1,13 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {showMessage} from '..';
+import {showMessage} from '../showMessage';
 
 export const storeData = async (storageKey, value) => {
   try {
-    const jsonValue = JSON.stringify(storageKey, value);
+    const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem(storageKey, jsonValue);
   } catch (e) {
-    // saving error
-    showMessage('Gagal menyimpan dilocalstorage');
+    showMessage('Gagal menyimpan di localstorage');
   }
 };
 
@@ -16,7 +15,6 @@ export const getData = async storageKey => {
     const jsonValue = await AsyncStorage.getItem(storageKey);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
-    // error reading value
-    showMessage('Gagal mengambil data dilocalstorage');
+    showMessage('Gagal mengambil data dari localstorage');
   }
 };
