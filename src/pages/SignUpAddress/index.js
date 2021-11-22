@@ -3,6 +3,7 @@ import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Button, Gap, Header, Select, TextInput} from '../../components';
+import {setLoading, signUpAction} from '../../redux/action';
 import {showMessage, useForm} from '../../utils';
 
 const SignUpAddress = ({navigation}) => {
@@ -23,41 +24,43 @@ const SignUpAddress = ({navigation}) => {
       ...registerReducer,
     }; //combine dari registerReducer
     // console.log('data register: ', data);
-    dispatch({type: 'SET_LOADING', value: true});
+    dispatch(setLoading(true));
 
-    Axios.post('http://foodmarket-backend.buildwithangga.id/api/register', data)
-      .then(res => {
-        console.log('data success: ', res.data);
-        if (photoReducer.isUploadPhoto) {
-          const photoForUpload = new FormData();
-          photoForUpload.append('file', photoReducer);
+    dispatch(signUpAction(data, photoReducer, navigation));
+    // Axios.post('http://foodmarket-backend.buildwithangga.id/api/register', data)
+    //   .then(res => {
+    //     console.log('data success: ', res.data);
+    //     if (photoReducer.isUploadPhoto) {
+    //       const photoForUpload = new FormData();
+    //       photoForUpload.append('file', photoReducer);
 
-          Axios.post(
-            'http://foodmarket-backend.buildwithangga.id/api/user/photo',
-            photoForUpload,
-            {
-              headers: {
-                Authorization: `${res.data.data.token_type} ${res.data.data.access_token}`,
-                'Content-Type': 'multipart/form-data',
-              },
-            },
-          )
-            .then(resUpload => {
-              console.log('success upload: ', resUpload);
-            })
-            .catch(err => {
-              showMessage('Upload photo tidak berhasil');
-            });
-        }
-        dispatch({type: 'SET_LOADING', value: false});
-        showMessage('Register Success', 'success');
-        navigation.replace('SuccessSignUp');
-      })
-      .catch(err => {
-        console.log('sign up error: ', err?.response?.data?.message);
-        dispatch({type: 'SET_LOADING', value: false});
-        showMessage(err?.response?.data?.message);
-      });
+    //       Axios.post(
+    //         'http://foodmarket-backend.buildwithangga.id/api/user/photo',
+    //         photoForUpload,
+    //         {
+    //           headers: {
+    //             Authorization: `${res.data.data.token_type} ${res.data.data.access_token}`,
+    //             'Content-Type': 'multipart/form-data',
+    //           },
+    //         },
+    //       )
+    //         .then(resUpload => {
+    //           console.log('success upload: ', resUpload);
+    //         })
+    //         .catch(err => {
+    //           showMessage('Upload photo tidak berhasil');
+    //         });
+    //     }
+    //     dispatch(setLoading(false));
+    //     showMessage('Register Success', 'success');
+    //     navigation.replace('SuccessSignUp');
+    //   })
+    //   .catch(err => {
+    //     console.log('sign up error: ', err?.response?.data?.message);
+    //     dispatch(setLoading(false));
+
+    //     showMessage(err?.response?.data?.message);
+    //   });
   };
 
   // const showToast = (message, type) => {
