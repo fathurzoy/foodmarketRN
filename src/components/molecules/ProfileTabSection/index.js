@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
@@ -18,6 +19,11 @@ const renderTabBar = props => (
 
 const Account = () => {
   const navigation = useNavigation();
+  const signOut = () => {
+    AsyncStorage.multiRemove(['userProfile', 'token']).then(() => {
+      navigation.reset({index: 0, routes: [{name: 'SignIn'}]});
+    });
+  };
   return (
     <ScrollView>
       <View style={styles.containerPopular}>
@@ -25,6 +31,7 @@ const Account = () => {
         <ItemListMenu text="Home Address" />
         <ItemListMenu text="Security" />
         <ItemListMenu text="Payments" />
+        <ItemListMenu text="SignOut" onPress={signOut} />
       </View>
     </ScrollView>
   );
