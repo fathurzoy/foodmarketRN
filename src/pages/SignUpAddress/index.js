@@ -22,7 +22,7 @@ const SignUpAddress = ({navigation}) => {
     const data = {
       ...form,
       ...registerReducer,
-    }; //combine dari registerReducer
+    }; //combine dari registerR educer
     // console.log('data register: ', data);
     dispatch(setLoading(true));
 
@@ -77,7 +77,9 @@ const SignUpAddress = ({navigation}) => {
         <Header
           title="Address"
           subTitle="Make sure it's valid"
-          onBack={() => {}}
+          onBack={() => {
+            navigation.goBack();
+          }}
         />
         <View style={styles.container}>
           <TextInput
