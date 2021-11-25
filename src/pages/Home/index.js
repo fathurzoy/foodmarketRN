@@ -23,7 +23,7 @@ import {
 } from '../../components/molecules';
 import {getFoodData} from '../../redux/action';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const {food} = useSelector(state => state.homeReducer);
   useEffect(() => {
@@ -43,6 +43,7 @@ const Home = () => {
                   name={itemFood.name}
                   image={{uri: itemFood.picturePath}}
                   rating={4}
+                  onPress={() => navigation.navigate('FoodDetail', itemFood)}
                 />
               );
             })}
