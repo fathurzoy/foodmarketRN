@@ -47,7 +47,7 @@ const InProgress = () => {
             <ItemListFood
               key={order.id}
               image={{uri: order.food.picturePath}}
-              onPress={() => navigation.navigate('OrderDetail')}
+              onPress={() => navigation.navigate('OrderDetail', order)}
               type="in-progress"
               items={order.quantity}
               price={order.total}
@@ -84,7 +84,7 @@ const PastOrder = () => {
             <ItemListFood
               key={order.id}
               image={{uri: order.food.picturePath}}
-              onPress={() => navigation.navigate('OrderDetail')}
+              onPress={() => navigation.navigate('OrderDetail', order)}
               type="past-orders"
               items={order.quantity}
               price={order.total}

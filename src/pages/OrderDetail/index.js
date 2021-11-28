@@ -1,58 +1,102 @@
+import Axios from 'axios';
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {FoodDummy1} from '../../assets';
 import {Button, Gap, Header, ItemListFood, ItemValue} from '../../components';
+import {API_HOST} from '../../config';
+import {getData} from '../../utils';
 
-const OrderDetail = () => {
+const OrderDetail = ({route, navigation}) => {
+  const order = route.params;
+
+  const onCancel = () => {
+    const data = {
+      status: 'CANCELLED',
+    };
+    getData('token').then(resToken => {
+      Axios.post(`${API_HOST.url}/transaction/${order.id}`, data, {
+        headers: {
+          Authorization: resToken.value,
+        },
+      })
+        .then(res => {
+          console.log('succeess cancel order: ', res);
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'MainApp'}],
+          });
+        })
+        .catch(err => {
+          console.log('err: ', err);
+        });
+    });
+  };
+
   return (
     <ScrollView>
       <Header
         title="Payment"
         subTitle="You deserve better meal"
-        onBack={() => {}}
+        onBack={() => {
+          navigation.goBack();
+        }}
       />
       <View style={styles.content}>
         <Text style={styles.label}>Item Ordered</Text>
         <ItemListFood
           type="order-summary"
-          name="Sop Bumil"
-          price="300.000"
-          items={14}
-          image={FoodDummy1}
-          items={14}
+          name={order.food.name}
+          price={order.food.price}
+          items={order.quantity}
+          image={{uri: order.food.picturePath}}
         />
         <Text style={styles.label}>Details Transaction</Text>
-        <ItemValue label="Cherry Healthy" value="IDR 18.390.000" />
-        <ItemValue label="Driver" value="IDR 50.000" />
-        <ItemValue label="Tax 10%" value="IDR 1.800.390" />
+        <ItemValue
+          label={order.food.name}
+          value={order.food.price * order.quantity}
+          type="currency"
+        />
+        <ItemValue label="Driver" value={50000} type="currency" />
+        <ItemValue
+          label="Tax 10%"
+          value={(10 / 1000) * order.total}
+          type="currency"
+        />
         <ItemValue
           label="Total Price"
-          value="IDR 390.803.000"
+          value={order.total}
           valueColor="#1abc9c"
+          type="currency"
         />
       </View>
 
       <View style={styles.content}>
         <Text style={styles.label}>Deliver to:</Text>
-        <ItemValue label="Name" value="Fathur Rahman" />
-        <ItemValue label="Phone No." value="0895 3803 2942" />
-        <ItemValue label="Address" value="Jl Maninjau" />
-        <ItemValue label="House No." value="58" />
-        <ItemValue label="City" value="Depok" />
+        <ItemValue label="Name" value={order.user.name} />
+        <ItemValue label="Phone No." value={order.user.phoneNumber} />
+        <ItemValue label="Address" value={order.user.address} />
+        <ItemValue label="House No." value={order.user.houseNumber} />
+        <ItemValue label="City" value={order.user.city} />
       </View>
 
       <View style={styles.content}>
         <Text style={styles.label}>Order Status:</Text>
-        <ItemValue label="#FM209391" value="Paid" valueColor="#1abc9c" />
+        <ItemValue
+          label={`#${order.id}`}
+          value={order.status}
+          valueColor={order.status === 'CANCELLED' ? '#D9435e' : '#1abc9c'}
+        />
       </View>
 
       <View style={styles.button}>
-        <Button
-          text="Cancel My Order"
-          onPress={() => navigation.replace('SuccessOrder')}
-          color="#D9436E"
-          textColor="white"
-        />
+        {order.status === 'PENDING' && (
+          <Button
+            text="Cancel My Order"
+            onPress={() => onCancel()}
+            color="#D9436E"
+            textColor="white"
+          />
+        )}
       </View>
       <Gap height={40} />
     </ScrollView>
