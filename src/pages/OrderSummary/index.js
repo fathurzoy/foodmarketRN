@@ -16,16 +16,16 @@ import {WebView} from 'react-native-webview';
 
 const OrderSummary = ({navigation, route}) => {
   const {item, transaction, userProfile} = route.params;
-  const [token, setToken] = useState('');
+  // const [token, setToken] = useState('');
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [paymentUrl, setPaymentUrl] = useState('https://google.com');
 
-  useEffect(() => {
-    getData('token').then(res => {
-      // console.log('token :', res);
-      setToken(res.value);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getData('token').then(res => {
+  //     // console.log('token :', res);
+  //     setToken(res.value);
+  //   });
+  // }, []);
 
   const onCheckout = () => {
     const data = {
@@ -35,20 +35,22 @@ const OrderSummary = ({navigation, route}) => {
       total: transaction.total,
       status: 'PENDING',
     };
-    Axios.post(`${API_HOST.url}/checkout`, data, {
-      headers: {
-        Authorization: token,
-      },
-    })
-      .then(res => {
-        console.log('checkout success: ', res.data);
-        setIsPaymentOpen(true);
-        setPaymentUrl(res.data.data.payment_url);
+    getData('token').then(resToken => {
+      Axios.post(`${API_HOST.url}/checkout`, data, {
+        headers: {
+          Authorization: resToken.value,
+        },
       })
-      .catch(err => {
-        console.log('error checkout: ', err);
-      });
-    // navigation.replace('SuccessOrder')
+        .then(res => {
+          console.log('checkout success: ', res.data);
+          setIsPaymentOpen(true);
+          setPaymentUrl(res.data.data.payment_url);
+        })
+        .catch(err => {
+          console.log('error checkout: ', err);
+        });
+      // navigation.replace('SuccessOrder')
+    });
   };
 
   const onNavChange = state => {
@@ -57,7 +59,7 @@ const OrderSummary = ({navigation, route}) => {
       'http://foodmarket-backend.buildwithangga.id/midtrans/success?order_id=5333&status_code=201&transaction_status=pending';
     const titleWeb = 'Laravel';
     if (state.title === titleWeb) {
-      navigation.replace('SuccessOrder');
+      navigation.reset({index: 0, routes: [{name: 'SuccessOrder'}]});
     }
   };
   if (isPaymentOpen === true) {

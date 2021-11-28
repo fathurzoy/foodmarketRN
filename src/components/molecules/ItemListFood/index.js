@@ -53,22 +53,31 @@ const ItemListFood = ({
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Number number={price} style={styles.price} />
+              <View style={styles.row}>
+                <Text style={styles.price}>{items} items</Text>
+                <View style={styles.dot} />
+                <Number number={price} style={styles.price} />
+              </View>
             </View>
           </>
         );
 
       case 'past-orders':
         // item past orders
+        const formatedDate = new Date(date).toLocaleDateString();
         return (
           <>
             <View style={styles.content}>
               <Text style={styles.title}>{name}</Text>
-              <Number number={price} style={styles.price} />
+              <View style={styles.row}>
+                <Text style={styles.price}>{items} items</Text>
+                <View style={styles.dot} />
+                <Number number={price} style={styles.price} />
+              </View>
             </View>
             <View>
-              <Text style={styles.date}>{date}</Text>
-              <Text style={styles.status}>{status}</Text>
+              <Text style={styles.date}>{formatedDate}</Text>
+              <Text style={styles.status(status)}>{status}</Text>
             </View>
           </>
         );
@@ -130,5 +139,20 @@ const styles = StyleSheet.create({
     color: '#8d92a3',
   },
   date: {fontSize: 10, fontFamily: 'Poppins-Regular', color: '#8d92a3'},
-  status: {fontSize: 10, fontFamily: 'Poppins-Regular', color: '#d9435e'},
+  status: status => ({
+    fontSize: 10,
+    fontFamily: 'Poppins-Regular',
+    color: status === 'CANCELLED' ? '#d9435e' : '#1abc9c',
+  }),
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  dot: {
+    width: 3,
+    height: 3,
+    borderRadius: 3,
+    backgroundColor: '#8d92a3',
+    marginHorizontal: 4,
+  },
 });
